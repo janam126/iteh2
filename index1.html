@@ -287,10 +287,64 @@
                     }
                     break;
                 case "put":
-                    //kod za bonus poene
+                if(tabela=="radio_novosti"){
+
+var value1=document.getElementById("id_novosti").value;
+var value2=document.getElementById("naslov_novosti_put").value;
+var value3=document.getElementById("tekst_novosti_put").value;
+var value4=document.getElementById("kategorija_odabir_put").value;
+
+$.ajax({
+url: "http://localhost/rest/api/novosti/"+value1,
+type: 'PUT',
+data:JSON.stringify({
+   
+   "naslov":value2,
+   "tekst":value3,
+   "kategorija_id":value4
+
+
+
+}),
+success: function(data) {
+alert("Odgovor od servera>"+data['poruka'])
+}
+});
+}else
+  var value5=document.getElementById("id_kategorije").value;
+  var value6=document.getElementById("kategorija_naziv_put").value;  
+
+  $.ajax({
+  url: "http://localhost/rest/api/kategorije/"+value5,
+  type: 'PUT',
+  data: JSON.stringify({
+   "kategorija" : value6
+  }),
+  success: function(data) {
+  alert("Odgovor od servera>"+data['poruka'])
+  }
+})       
                     break;
                 case "delete":
-                    //kod za bonus poene
+                var value=document.getElementById("brisanje").value;
+                    if(tabela=="radio_novosti"){
+                        $.ajax({
+                        url: "http://localhost/rest/api/novosti/"+value,
+                        type: 'DELETE',
+                        success: function(data) {
+                        alert("Odgovor od servera>"+data['poruka'])
+                        }
+                    });
+                    }else{
+                        $.ajax({
+                        url: "http://localhost/rest/api/kategorije/"+value,
+                        type: 'DELETE',
+                        success: function(data) {
+                        alert("Odgovor od servera>"+data['poruka'])
+                        }
+                    });
+
+                    }
                     break;
                 default:
                     console.log("default");
